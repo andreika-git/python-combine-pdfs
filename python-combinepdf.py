@@ -14,7 +14,7 @@ specify the output file name (defaults to combined.pdf if not specified).
 """
 
 from argparse import ArgumentParser
-import contextlib
+import contextlib2
 import PyPDF2
 
 
@@ -35,7 +35,7 @@ def main():
 
     # Workaround for PyPDF2 empty output file: keep input files open
     # See https://stackoverflow.com/a/49927541/336802
-    with contextlib.ExitStack() as stack:
+    with contextlib2.ExitStack() as stack:
         pdfMerger = PyPDF2.PdfFileMerger()
         files = [stack.enter_context(open(pdf, 'rb')) for pdf in args.files]
         for f in files:
